@@ -122,13 +122,13 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
 ]  # If this is used, then not need to use `CORS_ALLOW_ALL_ORIGINS = True`
-AUTH_USER_MODEL = 'authlogin.CustomUserModel'
+# AUTH_USER_MODEL = 'authlogin.CustomUserModel'
 
 ROOT_URLCONF = 'artist_website_backend.urls'
 
-REST_AUTH_SERIALIZERS = {
-    'USER_DETAIL_SERIALIZER ': 'authlogin.serializers.CustomUserModelSerializer'
-}
+# REST_AUTH_SERIALIZERS = {
+#     'USER_DETAIL_SERIALIZER ': 'authlogin.serializers.CustomUserModelSerializer'
+# }
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": (

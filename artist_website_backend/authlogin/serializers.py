@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import CustomUserModel, ourUser
+from .models import ourUser
 from django.conf import settings
 
 
