@@ -5,59 +5,75 @@ from uuid import uuid4
 
 # Create your models here.
 
+
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField("date published")
+
+
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+
+
+class ourUser(models.Model):
+    userName = models.CharField(max_length=150)
+    password = models.CharField(max_length=150)
+
 # test as  a cmmment
 
 
-class CustomUserModelManager(BaseUserManager):
-    def create_user(self, username, email, password=None):
-        """
-          Creates a custom user with the given fields
-        """
+# class CustomUserModelManager(BaseUserManager):
+#     def create_user(self, username, email, password=None):
+#         """
+#           Creates a custom user with the given fields
+#         """
 
-        user = self.model(
-            username=username,
-            email=self.normalize_email(email),
-        )
+#         user = self.model(
+#             username=username,
+#             email=self.normalize_email(email),
+#         )
 
-        user.set_password(password)
-        user.save(using=self._db)
+#         user.set_password(password)
+#         user.save(using=self._db)
 
-        return user
+#         return user
 
-    def create_superuser(self, username, email, password):
-        user = self.create_user(
-            username,
-            email,
-            password=password
-        )
+#     def create_superuser(self, username, email, password):
+#         user = self.create_user(
+#             username,
+#             email,
+#             password=password
+#         )
 
-        user.is_staff = True
-        user.is_superuser = True
-        user.save(using=self._db)
+#         user.is_staff = True
+#         user.is_superuser = True
+#         user.save(using=self._db)
 
-        return user
+#         return user
 
 
-class CustomUserModel(AbstractBaseUser, PermissionsMixin):
-    userId = models.CharField(
-        max_length=16, default=uuid4, primary_key=True, editable=False)
-    username = models.CharField(
-        max_length=16, unique=True, null=False, blank=False)
-    email = models.EmailField(
-        max_length=100, unique=True, null=False, blank=False)
+# class CustomUserModel(AbstractBaseUser, PermissionsMixin):
+#     userId = models.CharField(
+#         max_length=16, default=uuid4, primary_key=True, editable=False)
+#     username = models.CharField(
+#         max_length=16, unique=True, null=False, blank=False)
+#     email = models.EmailField(
+#         max_length=100, unique=True, null=False, blank=False)
 
-    USERNAME_FIELD = "username"
-    REQUIRED_FIELDS = ["email"]
+#     USERNAME_FIELD = "username"
+#     REQUIRED_FIELDS = ["email"]
 
-    active = models.BooleanField(default=True)
+#     active = models.BooleanField(default=True)
 
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
+#     is_staff = models.BooleanField(default=False)
+#     is_superuser = models.BooleanField(default=False)
 
-    created_on = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True)
+#     created_on = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+#     updated_at = models.DateTimeField(auto_now=True)
 
-    objects = CustomUserModelManager()
+#     objects = CustomUserModelManager()
 
-    class Meta:
-        verbose_name = "Custom User"
+#     class Meta:
+#         verbose_name = "Custom User"

@@ -14,6 +14,7 @@ from datetime import timedelta
 from pathlib import Path
 from .secrets import DJANGO_SECRET_KEY, JWT_SECRET_KEY
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,6 +33,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
+
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,34 +43,34 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # third party
+    # third party'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders',
     'django.contrib.sites',
 
     # authentication
     'dj_rest_auth',
     'dj_rest_auth.registration',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
 
     # local
-    'authlogin'
+    # 'authlogin.apps.AuthloginConfig',
+    'authlogin',
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email'
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    }
+    # 'google': {
+    #     'SCOPE': [
+    #         'profile',
+    #         'email'
+    #     ],
+    #     'AUTH_PARAMS': {
+    #         'access_type': 'online',
+    #     }
+    # }
 }
 
 SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
@@ -85,6 +89,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 
@@ -101,6 +106,22 @@ SIMPLE_JWT = {
 
 
 CORS_ORIGIN_ALLOW_ALL = True  # only for testing
+# CORS_ORIGIN_WHITELIST = (
+#    'http://localhost:3000',
+# )
+
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
+
+# If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = ['*']
+ALLOWED_HOSTS = ['*']
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]  # If this is used, then not need to use `CORS_ALLOW_ALL_ORIGINS = True`
 AUTH_USER_MODEL = 'authlogin.CustomUserModel'
 
 ROOT_URLCONF = 'artist_website_backend.urls'
@@ -173,7 +194,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
