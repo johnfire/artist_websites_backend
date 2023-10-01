@@ -2,6 +2,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from uuid import uuid4
+from django.utils.timezone import now
+
 
 # Create your models here.
 
@@ -17,9 +19,15 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
 
 
+def currentTime():
+    return now()
+
+
 class ourUser(models.Model):
     userName = models.CharField(max_length=150)
+    email = models.CharField(max_length=150)
     password = models.CharField(max_length=150)
+    createdOn = models.DateTimeField(default=currentTime)
 
 # test as  a cmmment
 

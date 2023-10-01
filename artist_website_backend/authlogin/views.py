@@ -18,17 +18,23 @@ def index(request):
 
 @csrf_exempt
 def createNewUser(request):
+    print("here we are !1!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     logging.debug(request)
     logging.debug(request.method)
     logging.debug(request.body)
     newUserData = JSONParser().parse(request)
     # test to see if user name and email exist
-    array2 = ourUser.objects.filter(userName=newUserData["data"]['email'])
+    array2 = ourUser.objects.filter(email=newUserData["data"]['email'])
     list_result = [entry for entry in array2]
     if len(list_result) == 0:
         datasave = ourUser(
-            userName=newUserData["data"]['email'],  password=newUserData["data"]['password'])
+            userName=newUserData["data"]['userName'],
+            email=newUserData["data"]["email"],
+            password=newUserData["data"]['password'])
         datasave.save()
         return HttpResponse("user created", status=201, content_type='text/plain')
     if len(list_result) > 0:
         return HttpResponse("that email exists try again", status=406, content_type='text/plain')
+
+def one (request):
+    print("atpageone")
